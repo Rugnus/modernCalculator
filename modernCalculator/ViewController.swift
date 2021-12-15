@@ -10,8 +10,8 @@ import UIKit
 class ViewController: UIViewController {
 
     
-    var currNumber: Double = 0
-    var prevNumber: Double = 0
+    var currNumber: Float = 0
+    var prevNumber: Float = 0
     var math = false
     var operation = 0
     
@@ -28,9 +28,12 @@ class ViewController: UIViewController {
             currNumber = 0
             operation = 0
         }
+        
         if (label.text != "" && sender.tag != 18 && sender.tag != 13) {
             
-            prevNumber = Double(label.text!)!
+            prevNumber = Float(label.text!)!
+            
+            
             
             if sender.tag == 14 {       // Divide
                 label.text = "/"
@@ -47,11 +50,16 @@ class ViewController: UIViewController {
             else if sender.tag == 17 {      // plus
                 label.text = "+"
             }
-            else if sender.tag == 12 {      // +/-
-                label.text! =  "-" + String(currNumber)
-            }
-            
-            operation = sender.tag
+//            else if sender.tag == 12 {      // +/-
+//                label.text! = "-" + label.text!
+//                currNumber = -currNumber
+//                print(currNumber)
+//                print(label.text)
+//            }
+//
+//            if sender.tag != 12 {
+                operation = sender.tag
+//            }
             math = true
         }
         else if sender.tag == 18 {
@@ -65,6 +73,7 @@ class ViewController: UIViewController {
                 label.text = String(prevNumber - currNumber)
             }
             else if operation == 17 {
+//                print("\(prevNumber) and  \(currNumber)")
                 label.text = String(prevNumber + currNumber)
             }
         }
@@ -75,12 +84,35 @@ class ViewController: UIViewController {
     @IBAction func numbers(_ sender: UIButton)
     {
         if math {
-            label.text = String(sender.tag - 1)
-            currNumber = Double(label.text!)!
+            if sender.tag != 19 && sender.tag != 12 {
+                label.text = String(sender.tag - 1)
+                currNumber = Float(label.text!)!
+            }
+            else if sender.tag == 19 {
+                label.text = String(currNumber) + "."
+            }
+            else if sender.tag == 12 {
+                label.text = "-" + label.text!
+                currNumber = Float(label.text!)!
+            }
             math = false
-        } else {
-            label.text = label.text! + String(sender.tag - 1)
-            currNumber = Double(label.text!)!
+        }
+        
+        else {
+            if sender.tag == 19 {
+                label.text = label.text! + "."
+            }
+            else if sender.tag != 19 && sender.tag != 12 {
+                label.text = label.text! + String(sender.tag - 1)
+                currNumber = Float(label.text!)!
+            }
+            else if sender.tag == 12 {
+                label.text = "-" + label.text!
+                currNumber = Float(label.text!)!
+            }
+            
+//            label.text = label.text! + String(sender.tag - 1)
+//            currNumber = Int(label.text!)!
         }
     
         
@@ -89,6 +121,8 @@ class ViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        label.textColor = .white
+        label.font = label.font.withSize(40)
         buttonsView.layer.cornerRadius = 25
         // Do any additional setup after loading the view.
     }
