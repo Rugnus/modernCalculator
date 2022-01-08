@@ -14,10 +14,22 @@ class ViewController: UIViewController {
     var prevNumber: Float = 0
     var math = false
     var operation = 0
+
     
     @IBOutlet weak var buttonsView: UIView!
     
     @IBOutlet weak var label: UILabel!
+
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        label.textColor = .white
+        label.font = label.font.withSize(40)
+//        buttonsView.layer.cornerRadius = 25
+        // Do any additional setup after loading the view.
+    }
+    func configureUI() {
+        buttonsView.layer.cornerRadius = 25
+    }
     
     @IBAction func buttons(_ sender: UIButton)
     {
@@ -119,13 +131,7 @@ class ViewController: UIViewController {
         
     }
     
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        label.textColor = .white
-        label.font = label.font.withSize(40)
-        buttonsView.layer.cornerRadius = 25
-        // Do any additional setup after loading the view.
-    }
+    
 
 
 }
